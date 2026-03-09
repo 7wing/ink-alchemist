@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import InkCodex from "./pages/InkCodex";
 import Collection from "./pages/Collection";
 import SwatchBook from "./pages/SwatchBook";
+import SwatchBuilder from "./pages/SwatchBuilder";
 import MarketAlcove from "./pages/MarketAlcove";
 import Gallery from "./pages/Gallery";
 import SettingsPage from "./pages/SettingsPage";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/codex" element={<InkCodex />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/swatches" element={<SwatchBook />} />
+          <Route path="/swatch-builder" element={<SwatchBuilder />} />
           <Route path="/market" element={<MarketAlcove />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/settings" element={<SettingsPage />} />

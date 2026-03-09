@@ -4,18 +4,19 @@ import SearchBar from "@/components/SearchBar";
 import ParchmentCard from "@/components/ParchmentCard";
 import PropertyBar from "@/components/PropertyBar";
 import WaxSealBadge from "@/components/WaxSealBadge";
+import InkDetailModal, { InkData } from "@/components/InkDetailModal";
 import inkBlue from "@/assets/inkwell-blue.png";
 import inkRed from "@/assets/inkwell-red.png";
 import inkGreen from "@/assets/inkwell-green.png";
 import inkGold from "@/assets/inkwell-gold.png";
 
-const inks = [
-  { id: 1, image: inkBlue, name: "Kon-peki", brand: "Pilot Iroshizuku", series: "Iroshizuku", status: "current" as const, color: "#2244aa", shimmer: 0, sheen: 30, shading: 85, saturation: 70, dryTime: 25, waterResist: 15 },
-  { id: 2, image: inkRed, name: "Oxblood", brand: "Diamine", series: "Standard", status: "current" as const, color: "#8B0000", shimmer: 0, sheen: 45, shading: 90, saturation: 80, dryTime: 30, waterResist: 20 },
-  { id: 3, image: inkGreen, name: "Nitrogen", brand: "Organics Studio", series: "Elements", status: "limited" as const, color: "#006D77", shimmer: 90, sheen: 95, shading: 40, saturation: 75, dryTime: 60, waterResist: 10 },
-  { id: 4, image: inkGold, name: "Caroube de Chypre", brand: "J. Herbin", series: "1670 Anniversary", status: "current" as const, color: "#DAA520", shimmer: 70, sheen: 20, shading: 55, saturation: 60, dryTime: 45, waterResist: 25 },
-  { id: 5, image: inkBlue, name: "Sailor Yama-dori", brand: "Sailor", series: "Jentle Four Seasons", status: "discontinued" as const, color: "#2E5B5B", shimmer: 0, sheen: 85, shading: 70, saturation: 65, dryTime: 35, waterResist: 30 },
-  { id: 6, image: inkRed, name: "Apache Sunset", brand: "Noodler's", series: "Standard", status: "current" as const, color: "#FF6600", shimmer: 0, sheen: 10, shading: 95, saturation: 90, dryTime: 20, waterResist: 45 },
+const inks: InkData[] = [
+  { id: 1, image: inkBlue, name: "Kon-peki", brand: "Pilot Iroshizuku", series: "Iroshizuku", status: "current", color: "#2244aa", shimmer: 0, sheen: 30, shading: 85, saturation: 70, dryTime: 25, waterResist: 15, acquired: "2024-12-15", source: "Goulet Pens", fill: 72, size: "50ml", notes: "Perfect everyday blue with amazing shading" },
+  { id: 2, image: inkRed, name: "Oxblood", brand: "Diamine", series: "Standard", status: "current", color: "#8B0000", shimmer: 0, sheen: 45, shading: 90, saturation: 80, dryTime: 30, waterResist: 20, acquired: "2025-01-03", source: "Cult Pens", fill: 45, size: "80ml", notes: "Rich burgundy with green sheen" },
+  { id: 3, image: inkGreen, name: "Nitrogen", brand: "Organics Studio", series: "Elements", status: "limited", color: "#006D77", shimmer: 90, sheen: 95, shading: 40, saturation: 75, dryTime: 60, waterResist: 10, acquired: "2024-11-20", source: "Vanness Pens", fill: 88, size: "55ml", notes: "Most insane sheen ever" },
+  { id: 4, image: inkGold, name: "Caroube de Chypre", brand: "J. Herbin", series: "1670 Anniversary", status: "current", color: "#DAA520", shimmer: 70, sheen: 20, shading: 55, saturation: 60, dryTime: 45, waterResist: 25, scent: "Honey & carob", acquired: "2025-02-14", source: "Pen Chalet", fill: 95, size: "50ml", notes: "Beautiful scented ink with gold shimmer" },
+  { id: 5, image: inkBlue, name: "Sailor Yama-dori", brand: "Sailor", series: "Jentle Four Seasons", status: "discontinued", color: "#2E5B5B", shimmer: 0, sheen: 85, shading: 70, saturation: 65, dryTime: 35, waterResist: 30, notes: "Legendary discontinued teal" },
+  { id: 6, image: inkRed, name: "Apache Sunset", brand: "Noodler's", series: "Standard", status: "current", color: "#FF6600", shimmer: 0, sheen: 10, shading: 95, saturation: 90, dryTime: 20, waterResist: 45, notes: "Incredible orange-to-yellow shading" },
 ];
 
 const statusVariant = { current: "default" as const, limited: "limited" as const, discontinued: "discontinued" as const };
@@ -23,11 +24,17 @@ const statusVariant = { current: "default" as const, limited: "limited" as const
 const InkCodex = () => {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<number | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const filtered = inks.filter(
     i => i.name.toLowerCase().includes(search.toLowerCase()) || i.brand.toLowerCase().includes(search.toLowerCase())
   );
   const detail = inks.find(i => i.id === selected);
+
+  const handleInkClick = (ink: InkData) => {
+    setSelected(ink.id);
+    setModalOpen(true);
+  };
 
   return (
     <AppShell>
@@ -41,7 +48,7 @@ const InkCodex = () => {
             {filtered.map((ink, i) => (
               <ParchmentCard key={ink.id} delay={i * 80} className="cursor-pointer hover:border-primary/30 transition-colors">
                 <button
-                  onClick={() => setSelected(ink.id)}
+                  onClick={() => handleInkClick(ink)}
                   className="w-full flex items-center gap-4 text-left"
                   aria-label={`View ${ink.name} by ${ink.brand}`}
                 >
@@ -52,12 +59,12 @@ const InkCodex = () => {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="font-display text-base font-semibold text-foreground">{ink.name}</h3>
-                      <WaxSealBadge label={ink.status} variant={statusVariant[ink.status]} />
+                      {ink.status && <WaxSealBadge label={ink.status} variant={statusVariant[ink.status]} />}
                     </div>
                     <p className="text-xs text-muted-foreground font-label">{ink.brand} · {ink.series}</p>
                     <div className="flex gap-4 mt-2">
-                      <PropertyBar label="Sheen" value={ink.sheen} color={ink.color} />
-                      <PropertyBar label="Shading" value={ink.shading} color={ink.color} />
+                      <PropertyBar label="Sheen" value={ink.sheen ?? 0} color={ink.color} />
+                      <PropertyBar label="Shading" value={ink.shading ?? 0} color={ink.color} />
                     </div>
                   </div>
                   <div className="w-4 h-4 rounded-full flex-shrink-0 border border-border" style={{ backgroundColor: ink.color }} aria-hidden="true" />
@@ -66,7 +73,7 @@ const InkCodex = () => {
             ))}
           </div>
 
-          {/* Detail pane */}
+          {/* Detail pane (desktop quick view) */}
           <div className="hidden lg:block">
             {detail ? (
               <ParchmentCard delay={0} className="sticky top-8">
@@ -77,16 +84,22 @@ const InkCodex = () => {
                   </div>
                   <h3 className="font-display text-xl font-semibold text-foreground">{detail.name}</h3>
                   <p className="text-sm text-muted-foreground font-label">{detail.brand}</p>
-                  <WaxSealBadge label={detail.status} variant={statusVariant[detail.status]} />
+                  {detail.status && <WaxSealBadge label={detail.status} variant={statusVariant[detail.status]} />}
                 </div>
                 <div className="space-y-3 mt-4">
-                  <PropertyBar label="Shimmer" value={detail.shimmer} color={detail.color} />
-                  <PropertyBar label="Sheen" value={detail.sheen} color={detail.color} />
-                  <PropertyBar label="Shading" value={detail.shading} color={detail.color} />
-                  <PropertyBar label="Saturation" value={detail.saturation} color={detail.color} />
-                  <PropertyBar label="Dry Time" value={detail.dryTime} color="hsl(var(--candlelight-dim))" />
-                  <PropertyBar label="Water Resistance" value={detail.waterResist} color="hsl(var(--ink-teal))" />
+                  <PropertyBar label="Shimmer" value={detail.shimmer ?? 0} color={detail.color} />
+                  <PropertyBar label="Sheen" value={detail.sheen ?? 0} color={detail.color} />
+                  <PropertyBar label="Shading" value={detail.shading ?? 0} color={detail.color} />
+                  <PropertyBar label="Saturation" value={detail.saturation ?? 0} color={detail.color} />
+                  <PropertyBar label="Dry Time" value={detail.dryTime ?? 0} color="hsl(var(--candlelight-dim))" />
+                  <PropertyBar label="Water Resistance" value={detail.waterResist ?? 0} color="hsl(var(--ink-teal))" />
                 </div>
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="mt-4 w-full text-center text-sm font-label text-primary hover:text-antique-gold transition-colors"
+                >
+                  View full details →
+                </button>
               </ParchmentCard>
             ) : (
               <ParchmentCard className="text-center py-12">
@@ -96,6 +109,8 @@ const InkCodex = () => {
           </div>
         </div>
       </div>
+
+      <InkDetailModal ink={detail || null} open={modalOpen} onOpenChange={setModalOpen} />
     </AppShell>
   );
 };
