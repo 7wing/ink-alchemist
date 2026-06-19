@@ -1,4 +1,3 @@
-import AppShell from "@/components/AppShell";
 import ParchmentCard from "@/components/ParchmentCard";
 import WaxSealBadge from "@/components/WaxSealBadge";
 import inkBlue from "@/assets/inkwell-blue.png";
@@ -15,8 +14,7 @@ const collection = [
 ];
 
 const Collection = () => (
-  <AppShell>
-    <div className="max-w-5xl mx-auto px-4 pt-8">
+  <div className="max-w-5xl mx-auto px-4 pt-8">
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-display text-3xl md:text-4xl text-foreground">My Collection</h2>
         <button
@@ -59,7 +57,6 @@ const Collection = () => (
         ))}
       </div>
     </div>
-  </AppShell>
 );
 
 export default Collection;

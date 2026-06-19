@@ -1,0 +1,178 @@
+Here are the key new pages as layout specs you can drop straight into your Lovable project.
+
+---
+
+**`src/pages/InkSwap.tsx` — Swap Marketplace**
+
+```
+AppShell
+├── Header row
+│   ├── h2 "Ink Swap · Sample Economy"
+│   └── Button "List an Ink" (primary)
+│
+├── Matchmaker Banner (ParchmentCard, gold border)
+│   ├── Sparkles icon + "The Scriptorium found a match for you"
+│   ├── Row: [User A ink vial] ⇄ [User B ink vial]
+│   └── Button "Propose Swap" + Button "Dismiss"
+│
+├── Tabs: "Available Samples" | "My Listings" | "Pending Swaps"
+│
+└── Listing cards (space-y-3)
+    └── ParchmentCard (per listing)
+        ├── Left: inkwell image (w-14 h-14)
+        ├── Middle
+        │   ├── ink name + WaxSealBadge (status)
+        │   ├── "2ml vial · by QuillMaster42"
+        │   └── Tags: [Shimmer] [Sheen] [Tomoe River tested]
+        └── Right
+            ├── "$4.00 or swap"
+            └── Button "Request Sample"
+```
+
+---
+
+**`src/pages/InkBattle.tsx` — Dupe Finder / Battles**
+
+```
+AppShell
+├── Header: h2 "Ink Battles · Dupe Finder"
+│
+├── Top: Comparison Builder (ParchmentCard)
+│   ├── Row of 2–3 ink selector slots
+│   │   └── Each slot: ink image + name + "Change" button
+│   └── Button "Compare Side by Side" (primary)
+│
+├── Side-by-Side Panel (grid 2–3 cols, gap-4)
+│   └── Per ink column
+│       ├── Ink image (w-24 h-24, with color glow)
+│       ├── Ink name + brand
+│       ├── Color swatch (w-full h-8 rounded)
+│       ├── PropertyBars: Sheen / Shading / Shimmer / Saturation
+│       └── "Vote Best Performance" button
+│
+├── Similarity Score row
+│   └── ParchmentCard: "These inks are 87% similar · possible dupe"
+│
+└── Community Battle cards (space-y-4)
+    └── ParchmentCard per active battle
+        ├── "Battle: Oxblood vs Apache Sunset"
+        ├── Two mini ink images side by side
+        ├── Vote bar (left% vs right%)
+        └── Top comment preview (italic, antique-gold)
+```
+
+---
+
+**`src/pages/CurrentlyInked.tsx` — Project Log Feed**
+
+```
+AppShell
+├── Header row
+│   ├── h2 "Currently Inked"
+│   └── Button "Log Today's Setup" (primary, + icon)
+│
+└── Feed (space-y-6, max-w-2xl)
+    └── Article card per post
+        ├── Image (w-full aspect-[4/3] object-cover)
+        │
+        ├── Lighting badge (top-right overlay)
+        │   └── [Natural Sunlight] | [Warm Lamp] | [Scanner]
+        │
+        ├── Body (p-4)
+        │   ├── "@username · timeago"
+        │   ├── Caption text
+        │   │
+        │   ├── Clickable tag bubbles (flex-wrap gap-2 mt-3)
+        │   │   ├── [Ink: Sailor Manyo Haha] → /codex/:id
+        │   │   ├── [Paper: Tomoe River 68gsm]
+        │   │   └── [Pen: Pilot Custom 823]
+        │   │
+        │   └── Reaction row
+        │       ├── "✦ Ink Splat · 14"
+        │       └── "✧ Sheen Glow · 6"
+```
+
+---
+
+**`src/pages/InkGrimoire.tsx` — Deep Collection Entry Form**
+
+```
+AppShell
+├── h2 "Add to Grimoire"
+│
+└── ParchmentCard form (max-w-2xl, space-y-6)
+    │
+    ├── Section 1 "Base Identity"
+    │   ├── Input: Brand *
+    │   ├── Input: Official Color Name *
+    │   └── Input: Release Year
+    │
+    ├── Section 2 "Color"
+    │   ├── Color family select (Black / Blue / Teal / Red / Green / Gold / Purple / Other)
+    │   ├── Hex color picker input (#______) + live color dot preview
+    │   └── Macro tag checkboxes: [Shimmer] [Sheen] [Shading] [Sheening] [Lubricated]
+    │
+    ├── Section 3 "Physical Behavior" (grid 2-col)
+    │   ├── Slider: Drying Time 1–5
+    │   ├── Slider: Flow / Wetness 1–5
+    │   ├── Select: Water Resistance (None / Low / Medium / Waterproof)
+    │   └── Select: Pigment Density (Light / Medium / Heavy / Bulletproof)
+    │
+    ├── Section 4 "Medium Context" *
+    │   ├── Select: Tested On (52gsm Paper / 68gsm / 80gsm / Cotton / Human Skin / Canvas / Other)
+    │   └── Input: Paper / Canvas brand (optional)
+    │
+    ├── Section 5 "Acquisition"
+    │   ├── Input: Source / Shop
+    │   ├── Date picker: Date Acquired
+    │   ├── Select: Format (Full Bottle / Mini Vial / Sample / Ink Pad / Cartridge)
+    │   └── Slider: Current Fill Level 0–100%
+    │
+    ├── Textarea: Personal Notes (italic placeholder: "Your impressions…")
+    │
+    └── Button row
+        ├── Button "Save to Grimoire" (primary, full-width)
+        └── Link "Cancel"
+```
+
+---
+
+**Navigation additions** — update `src/components/Navigation.tsx` and `src/components/MobileNav.tsx`:
+
+```
+Sidebar navItems to add:
+├── /swap          ArrowLeftRight   "Ink Swap"
+├── /battle        Swords           "Ink Battles"
+├── /currently-inked  Feather       "Currently Inked"
+└── /grimoire      BookPlus         "Add to Grimoire"
+
+Mobile nav (5 slots, keep most-used):
+Home | Codex | Currently Inked | Swap | Gallery
+```
+
+---
+
+**`src/App.tsx` — new routes to add:**
+
+```tsx
+<Route path="/swap"             element={<InkSwap />} />
+<Route path="/battle"           element={<InkBattle />} />
+<Route path="/currently-inked"  element={<CurrentlyInked />} />
+<Route path="/grimoire"         element={<InkGrimoire />} />
+```
+
+---
+
+**Reusable components to create:**
+
+```
+src/components/
+├── LightingBadge.tsx     — [Natural Sunlight] / [Warm Lamp] / [Scanner] pill overlay
+├── MetadataTag.tsx       — clickable [Ink: name] / [Paper: name] / [Pen: name] bubble
+├── ReactionButton.tsx    — "✦ Ink Splat · N" custom upvote button
+├── MatchmakerBanner.tsx  — swap suggestion card with two vials + CTA
+├── VoteBar.tsx           — split progress bar for battle voting (left% vs right%)
+└── SimilarityBadge.tsx   — "87% similar · possible dupe" pill
+```
+
+Each of these maps 1:1 to the layout blocks above so you can build and wire them up in Lovable incrementally without guessing at structure.

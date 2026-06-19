@@ -1,5 +1,4 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import AppShell from "@/components/AppShell";
 import ParchmentCard from "@/components/ParchmentCard";
 import { Button } from "@/components/ui/button";
 import { Undo2, Download, Trash2, Droplets, Sparkles, Minus, Plus } from "lucide-react";
@@ -348,8 +347,7 @@ const SwatchBuilder = () => {
   };
 
   return (
-    <AppShell>
-      <div className="max-w-6xl mx-auto px-4 pt-8 pb-12">
+    <div className="max-w-6xl mx-auto px-4 pt-8 pb-12">
         <h2 className="font-display text-3xl md:text-4xl text-foreground mb-6">Swatch Card Builder</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -492,7 +490,6 @@ const SwatchBuilder = () => {
           </div>
         </div>
       </div>
-    </AppShell>
   );
 };
 

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import AppShell from "@/components/AppShell";
 import SwatchCard from "@/components/SwatchCard";
 import SwatchUploadModal, { UploadedSwatch } from "@/components/SwatchUploadModal";
 import swatch1 from "@/assets/swatch-sample-1.jpg";
@@ -25,7 +24,7 @@ const SwatchBook = () => {
   };
 
   return (
-    <AppShell>
+    <>
       <div className="max-w-5xl mx-auto px-4 pt-8">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <h2 className="font-display text-3xl md:text-4xl text-foreground">Swatch Book</h2>
@@ -78,7 +77,7 @@ const SwatchBook = () => {
       </div>
 
       <SwatchUploadModal open={uploadOpen} onOpenChange={setUploadOpen} onUpload={handleUpload} />
-    </AppShell>
+    </>
   );
 };
 

@@ -1,10 +1,8 @@
-import AppShell from "@/components/AppShell";
 import ParchmentCard from "@/components/ParchmentCard";
 import { Download, Eye, Bell, Shield } from "lucide-react";
 
 const SettingsPage = () => (
-  <AppShell>
-    <div className="max-w-2xl mx-auto px-4 pt-8">
+  <div className="max-w-2xl mx-auto px-4 pt-8">
       <h2 className="font-display text-3xl md:text-4xl text-foreground mb-8">Candle Nook</h2>
 
       <div className="space-y-4">
@@ -73,7 +71,6 @@ const SettingsPage = () => (
         </ParchmentCard>
       </div>
     </div>
-  </AppShell>
 );
 
 export default SettingsPage;

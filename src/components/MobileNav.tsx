@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, Library, Droplets, Users } from "lucide-react";
+import { Home, BookOpen, Users, Feather, ArrowLeftRight } from "lucide-react";
 
 const items = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/codex", icon: BookOpen, label: "Codex" },
-  { to: "/collection", icon: Library, label: "Collection" },
-  { to: "/swatches", icon: Droplets, label: "Swatches" },
+  { to: "/currently-inked", icon: Feather, label: "Currently Inked" },
+  { to: "/swap", icon: ArrowLeftRight, label: "Swap" },
   { to: "/gallery", icon: Users, label: "Gallery" },
 ];
 

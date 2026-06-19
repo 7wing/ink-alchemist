@@ -1,4 +1,3 @@
-import AppShell from "@/components/AppShell";
 import ParchmentCard from "@/components/ParchmentCard";
 import WaxSealBadge from "@/components/WaxSealBadge";
 import inkBlue from "@/assets/inkwell-blue.png";
@@ -12,8 +11,7 @@ const listings = [
 ];
 
 const MarketAlcove = () => (
-  <AppShell>
-    <div className="max-w-5xl mx-auto px-4 pt-8">
+  <div className="max-w-5xl mx-auto px-4 pt-8">
       <div className="flex items-center gap-3 mb-2">
         <h2 className="font-display text-3xl md:text-4xl text-foreground">Market Alcove</h2>
         <Lock className="w-4 h-4 text-muted-foreground" />
@@ -41,7 +39,6 @@ const MarketAlcove = () => (
         ))}
       </div>
     </div>
-  </AppShell>
 );
 
 export default MarketAlcove;

@@ -1,4 +1,3 @@
-import AppShell from "@/components/AppShell";
 import swatch1 from "@/assets/swatch-sample-1.jpg";
 import swatch2 from "@/assets/swatch-sample-2.jpg";
 import { Lock } from "lucide-react";
@@ -11,8 +10,7 @@ const posts = [
 ];
 
 const Gallery = () => (
-  <AppShell>
-    <div className="max-w-3xl mx-auto px-4 pt-8">
+  <div className="max-w-3xl mx-auto px-4 pt-8">
       <div className="flex items-center gap-3 mb-2">
         <h2 className="font-display text-3xl md:text-4xl text-foreground">Community Scriptorium</h2>
         <Lock className="w-4 h-4 text-muted-foreground" />
@@ -41,7 +39,6 @@ const Gallery = () => (
         ))}
       </div>
     </div>
-  </AppShell>
 );
 
 export default Gallery;

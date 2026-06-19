@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AppShell from "@/components/AppShell";
 import InkVial from "@/components/InkVial";
 import ParchmentCard from "@/components/ParchmentCard";
 import SwatchCard from "@/components/SwatchCard";
@@ -51,7 +50,7 @@ const Index = () => {
   };
 
   return (
-    <AppShell>
+    <>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -125,7 +124,7 @@ const Index = () => {
       </section>
 
       <InkDetailModal ink={selectedInk} open={modalOpen} onOpenChange={setModalOpen} />
-    </AppShell>
+    </>
   );
 };
 

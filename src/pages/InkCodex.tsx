@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AppShell from "@/components/AppShell";
 import SearchBar from "@/components/SearchBar";
 import ParchmentCard from "@/components/ParchmentCard";
 import PropertyBar from "@/components/PropertyBar";
@@ -37,7 +36,7 @@ const InkCodex = () => {
   };
 
   return (
-    <AppShell>
+    <>
       <div className="max-w-6xl mx-auto px-4 pt-8">
         <h2 className="font-display text-3xl md:text-4xl text-foreground mb-6">Ink Codex</h2>
         <SearchBar value={search} onChange={setSearch} placeholder="Search by name, brand, or series…" />
@@ -111,7 +110,7 @@ const InkCodex = () => {
       </div>
 
       <InkDetailModal ink={detail || null} open={modalOpen} onOpenChange={setModalOpen} />
-    </AppShell>
+    </>
   );
 };
 
